@@ -6,7 +6,7 @@ const App = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_KEY = '3db6a4af1327dd8b03e4bb886952999f'; 
+  const API_KEY = '3db6a4af1327dd8b03e4bb886952999f';
 
   useEffect(() => {
     fetchNews(category);
@@ -17,9 +17,10 @@ const App = () => {
     try {
       const response = await fetch(`https://gnews.io/api/v4/top-headlines?category=${category}&apikey=${API_KEY}&max=10&lang=en`);
       const data = await response.json();
-      setNewsData(data.articles);
+      setNewsData(data.articles || []); 
     } catch (error) {
       console.error("Error fetching the news data: ", error);
+      setNewsData([]);
     } finally {
       setLoading(false);
     }
